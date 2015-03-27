@@ -12,12 +12,10 @@ func KeysToObjectId(keys ...string) ([16]byte, error) {
 	var err error
 	var emptyResult [16]byte
 
-	// Concatenate strings
-	for i := range keys {
-		_, err := buffer.WriteString(strings.ToLower(keys[i]))
-		if err != nil {
-			return emptyResult, err
-		}
+	// Concatenate strings and convert to lower case
+	_, err = buffer.WriteString(strings.ToLower(strings.Join(keys, "")))
+	if err != nil {
+		return emptyResult, err
 	}
 
 	// Create MD5 Sum
